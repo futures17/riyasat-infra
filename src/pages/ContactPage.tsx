@@ -100,9 +100,10 @@ const ContactPage = () => {
 
               <div>
                 <div className="text-xs uppercase tracking-widest text-[#c8a44b] font-bold mb-3">Direct Lines</div>
-                <p className="font-body text-forest-deep/80 text-lg hover:text-[#c8a44b] font-medium cursor-pointer transition-colors">+91 98765 43210</p>
-                <p className="font-body text-forest-deep/80 text-lg hover:text-[#c8a44b] font-medium cursor-pointer transition-colors mt-1">+91 91234 56789</p>
+                <p className="font-body text-forest-deep/80 text-lg hover:text-[#c8a44b] font-medium cursor-pointer transition-colors">+91-90000 00000</p>
+                <p className="font-body text-forest-deep/80 text-lg hover:text-[#c8a44b] font-medium cursor-pointer transition-colors mt-1">+91-91111 11111</p>
               </div>
+
 
               <div>
                 <div className="text-xs uppercase tracking-widest text-[#c8a44b] font-bold mb-3">Electronic Mail</div>
@@ -129,9 +130,9 @@ const ContactPage = () => {
                  <label className="text-xs text-[#F5E6CA] uppercase tracking-widest font-bold">Message</label>
                  <textarea rows={4} className="w-full bg-white/10 border border-[#c8a44b]/30 rounded-lg p-4 mt-2 text-white focus:border-[#c8a44b] focus:bg-white/20 outline-none font-body resize-none appearance-none transition-all"></textarea>
                </div>
-               <button className="mt-6 px-8 py-3 bg-[#c8a44b]/10 border border-[#c8a44b]/60 text-[#c8a44b] font-medium text-xs uppercase tracking-[0.2em] rounded-md hover:bg-[#c8a44b] hover:text-[#111] transition-all duration-300 font-body">
-                 Send Message
-               </button>
+                <button className="mt-6 luxury-btn-solid self-start !py-3 !px-10">
+                  Send Message
+                </button>
             </form>
           </div>
 

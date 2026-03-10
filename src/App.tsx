@@ -17,15 +17,15 @@ import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import TermsConditionsPage from "./pages/TermsConditionsPage";
 import SitemapPage from "./pages/SitemapPage";
 import DeveloperPage from "./pages/DeveloperPage";
-
+import ScrollToTop from "./components/ScrollToTop";
 const queryClient = new QueryClient();
-
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/gallery" element={<GalleryPage />} />
@@ -46,5 +46,4 @@ const App = () => (
     </TooltipProvider>
   </QueryClientProvider>
 );
-
 export default App;

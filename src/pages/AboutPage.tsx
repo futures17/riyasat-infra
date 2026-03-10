@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import LuxuryFooter from "@/components/LuxuryFooter";
@@ -20,6 +20,15 @@ const brochureLinks = [
 const AboutPage = () => {
   const navigate = useNavigate();
   const brochureRef = useRef<HTMLDivElement>(null);
+  const [zooms, setZooms] = useState<number[]>(new Array(8).fill(1));
+
+  const updateZoom = (index: number, delta: number) => {
+    setZooms(prev => {
+      const next = [...prev];
+      next[index] = Math.min(Math.max(next[index] + delta, 1), 1.5);
+      return next;
+    });
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -133,7 +142,7 @@ const AboutPage = () => {
   }, []);
 
   return (
-    <div className="overflow-x-hidden bg-background">
+    <div className="about-page-wrapper bg-background">
       <Navbar />
 
       {/* Hero Header */}
@@ -202,30 +211,33 @@ const AboutPage = () => {
         </div>
       </section>
 
-      {/* Project Brochure - Stacked Cards */}
-      <section ref={brochureRef} className="bg-forest-deep text-cream py-24">
-        <div className="text-center mb-16 px-6">
-          <div className="text-xs uppercase tracking-widest mb-4 opacity-70 font-body text-[#c8a44b]">Project Details</div>
-          <h2 className="font-heading font-light tracking-[0.02em] text-4xl md:text-6xl text-[#F5E6CA]">
-            Project <span className="text-[#c8a44b] font-medium italic">Brochure</span>
+      {/* Project Brochure - Final Premium Visual Stacking (8 Pages) */}
+      <section ref={brochureRef} className="py-24 bg-[#b9cbb5] text-[#1a1a1a] relative">
+        <div className="text-center mb-12 px-6">
+          <div className="text-xs uppercase tracking-widest mb-4 opacity-70 font-body">The Publication</div>
+          <h2 className="font-heading font-light tracking-[0.02em] text-5xl md:text-7xl text-[#4A3B2C]">
+            ESTATE <span className="text-[#c8a44b] font-medium italic">CATALOGUE</span>
           </h2>
+          <div className="w-24 h-px bg-[#4A3B2C]/20 mx-auto mt-8"></div>
         </div>
 
-        <div className="relative pb-[10vh] w-full max-w-[1400px] mx-auto min-h-[100vh]">
-          {brochureLinks.map((linkId, index) => (
+        {/* The Stacking Container - Minimized Spacing */}
+        <div className="stacked-cards-shell relative w-full max-w-[1500px] mx-auto px-2 md:px-12 flex flex-col gap-0 pb-10">
+          {brochureLinks.slice(0, 8).map((linkId, index) => (
             <div 
               key={index} 
-              className="brochure-card-item flex items-center justify-center w-full min-h-[70vh] md:min-h-[85vh] mb-[15vh] sticky top-[5vh] md:top-[10vh]" 
+              className="brochure-card-item sticky top-[10vh] md:top-[12vh] w-full flex items-start justify-center mb-[8vh] last:mb-0" 
               style={{ zIndex: index + 1 }}
             >
-              <div className="brochure-card-inner w-[95%] md:w-[92%] h-[60vh] md:h-[80vh] bg-[#1B4332] border-2 md:border-4 border-[#E7BC7E] shadow-[0_45px_90px_-20px_rgba(0,0,0,0.9)] will-change-transform rounded-3xl overflow-hidden flex items-center justify-center relative group">
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent z-10 pointer-events-none"></div>
-                
-                {/* Scroll mask to prevent iframe from stalling the page scroll */}
-                <div className="absolute inset-0 z-[15] pointer-events-none md:group-hover:pointer-events-auto"></div>
-
+              <div 
+                className="brochure-card-inner w-[98%] md:w-full aspect-[16/10] md:aspect-[16/9] bg-[#051C14] relative overflow-hidden shadow-[0_45px_100px_-20px_rgba(0,0,0,0.9)] will-change-transform rounded-[1rem] md:rounded-[2rem] group origin-top transition-all duration-700 ease-out border border-[#E7BC7E]/30 transform-gpu"
+                style={{ 
+                  transform: `scale(${zooms[index]}) translateZ(0)`,
+                  backfaceVisibility: "hidden"
+                }}
+              >
                 {/* Embed Player */}
-                <div className="w-full h-full relative z-0 flex items-center justify-center bg-[#051C14]">
+                <div className="absolute inset-0 w-full h-full flex items-center justify-center">
                   <iframe 
                     style={{ width: "100%", height: "100%", border: 0 }} 
                     scrolling="no" 
@@ -235,19 +247,54 @@ const AboutPage = () => {
                     className="w-full h-full pointer-events-none md:pointer-events-auto"
                   >
                   </iframe>
-                  {/* Invisible scroll mask for mobile specifically */}
-                  <div className="absolute inset-0 z-[1] md:hidden"></div>
+                  <div className="absolute inset-0 z-10 md:hidden block bg-transparent"></div>
                 </div>
-                
-                {/* Luxury Label */}
-                <div className="absolute top-6 left-6 z-20 bg-[#c8a44b] px-4 py-2 rounded-lg border border-white/20 shadow-xl">
-                  <span className="text-[12px] text-white uppercase tracking-[0.2em] font-bold">BROCHURE PAGE 0{index + 1}</span>
+
+                {/* Luxury Gold Label */}
+                <div className="absolute top-4 left-4 md:top-6 md:left-6 z-20">
+                  <div className="bg-gradient-to-r from-[#b8860b] to-[#8b6508] px-4 py-1.5 rounded-full shadow-lg flex items-center gap-2 border border-white/10">
+                    <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+                    <span className="text-[9px] md:text-xs text-white uppercase tracking-widest font-bold">Catalogue Page 0{index + 1}</span>
+                  </div>
                 </div>
+
+                {/* Functional Zoom UI */}
+                <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 z-20 flex flex-col gap-2">
+                  <button 
+                    onClick={() => updateZoom(index, 0.1)}
+                    className="w-10 h-10 bg-black/40 backdrop-blur-md rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#b8860b] transition-all active:scale-95"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" /></svg>
+                  </button>
+                  <button 
+                    onClick={() => updateZoom(index, -0.1)}
+                    className="w-10 h-10 bg-black/40 backdrop-blur-md rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#b8860b] transition-all active:scale-95"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18 12H6" /></svg>
+                  </button>
+                </div>
+
+                {/* Corner Accents */}
+                <div className="absolute top-0 right-0 w-12 h-12 border-t border-r border-[#c8a44b]/20 rounded-tr-[1rem] md:rounded-tr-[2rem] pointer-events-none"></div>
+                <div className="absolute bottom-0 left-0 w-12 h-12 border-b border-l border-[#c8a44b]/20 rounded-bl-[1rem] md:rounded-bl-[2rem] pointer-events-none"></div>
               </div>
             </div>
           ))}
         </div>
+
+        {/* Improved Download CTA */}
+        <div className="text-center mt-12 relative z-30">
+          <button 
+             onClick={() => window.open('https://drive.google.com/file/d/1Z_50Y1ki3r9-u6lzKzIcoH9gW93cEthz/view?usp=sharing', '_blank')}
+             className="uiverse-gold-btn mx-auto"
+          >
+            <span className="font-heading tracking-[0.2em] text-[10px]">DOWNLOAD BROCHURE</span>
+          </button>
+          <p className="text-[#4A3B2C]/60 text-[10px] uppercase tracking-widest mt-6 font-bold">Official PDF Catalogue • High Resolution</p>
+        </div>
       </section>
+
+
 
       {/* Video Presentation Section */}
       <section className="py-24 px-6 md:px-12 max-w-6xl mx-auto">

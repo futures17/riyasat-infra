@@ -26,7 +26,7 @@ const ContactSection = () => {
             </p>
             <div className="space-y-5">
               {[
-                { icon: Phone, text: "+91 98XX XXX XXX", label: "Call Us" },
+                { icon: Phone, text: "+91-9000000000", label: "Call Us" },
                 { icon: Mail, text: "info@riyasatinfra.com", label: "Email" },
                 { icon: MapPin, text: "Near Bhopal, Madhya Pradesh", label: "Location" },
               ].map(({ icon: Icon, text, label }) => (

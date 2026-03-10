@@ -103,7 +103,7 @@ const InvestmentPage = () => {
             
             <button
               onClick={() => navigate("/book-visit")}
-              className="mt-10 px-8 py-3 bg-transparent border border-[#c8a44b]/60 text-[#c8a44b] font-medium text-xs uppercase tracking-[0.2em] rounded-full hover:bg-[#c8a44b] hover:text-white transition-all duration-500 font-body shadow-[0_0_15px_rgba(200,164,75,0.1)]"
+              className="mt-10 luxury-btn-solid !py-3 !px-10"
             >
               Enquire for Pricing
             </button>
@@ -116,27 +116,33 @@ const InvestmentPage = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-24">
-          <div className="invest-reveal text-center p-8 bg-forest-deep border border-[#c8a44b]/20 rounded-2xl hover:border-[#c8a44b]/40 transition-all shadow-xl hover:-translate-y-2">
+          <div className="invest-reveal group text-center p-8 bg-forest-deep border border-[#c8a44b]/20 rounded-2xl hover:border-[#c8a44b]/60 transition-all duration-500 shadow-xl hover:-translate-y-2">
             <div className="flex justify-center mb-6">
-              <Scale className="w-12 h-12 text-[#c8a44b]" strokeWidth={1.5} />
+              <div className="w-20 h-20 rounded-full border border-[#c8a44b]/30 flex items-center justify-center group-hover:bg-[#c8a44b] group-hover:border-[#c8a44b] transition-all duration-500 shadow-[0_0_15px_rgba(200,164,75,0.1)] group-hover:shadow-[0_0_25px_rgba(200,164,75,0.4)]">
+                <Scale className="w-8 h-8 text-[#c8a44b] group-hover:text-forest-deep transition-colors duration-500" strokeWidth={1.5} />
+              </div>
             </div>
             <h3 className="text-xl text-[#F5E6CA] font-heading font-medium mb-3">Legal Clarity</h3>
             <p className="text-[#F5E6CA]/60 font-body text-sm leading-relaxed">
               100% clear titles, registry ready plots, and entirely legally compliant land ensuring entirely stress-free ownership.
             </p>
           </div>
-          <div className="invest-reveal text-center p-8 bg-forest-deep border border-[#c8a44b]/20 rounded-2xl hover:border-[#c8a44b]/40 transition-all shadow-xl hover:-translate-y-2" style={{ transitionDelay: '0.1s' }}>
+          <div className="invest-reveal group text-center p-8 bg-forest-deep border border-[#c8a44b]/20 rounded-2xl hover:border-[#c8a44b]/60 transition-all duration-500 shadow-xl hover:-translate-y-2" style={{ transitionDelay: '0.1s' }}>
             <div className="flex justify-center mb-6">
-              <TrendingUp className="w-12 h-12 text-[#c8a44b]" strokeWidth={1.5} />
+              <div className="w-20 h-20 rounded-full border border-[#c8a44b]/30 flex items-center justify-center group-hover:bg-[#c8a44b] group-hover:border-[#c8a44b] transition-all duration-500 shadow-[0_0_15px_rgba(200,164,75,0.1)] group-hover:shadow-[0_0_25px_rgba(200,164,75,0.4)]">
+                <TrendingUp className="w-8 h-8 text-[#c8a44b] group-hover:text-forest-deep transition-colors duration-500" strokeWidth={1.5} />
+              </div>
             </div>
             <h3 className="text-xl text-[#F5E6CA] font-heading font-medium mb-3">High APY Returns</h3>
             <p className="text-[#F5E6CA]/60 font-body text-sm leading-relaxed">
               Situated in Bhopal's fastest expanding wealth corridor, expect formidable capital appreciation over the next five to ten years.
             </p>
           </div>
-          <div className="invest-reveal text-center p-8 bg-forest-deep border border-[#c8a44b]/20 rounded-2xl hover:border-[#c8a44b]/40 transition-all shadow-xl hover:-translate-y-2" style={{ transitionDelay: '0.2s' }}>
+          <div className="invest-reveal group text-center p-8 bg-forest-deep border border-[#c8a44b]/20 rounded-2xl hover:border-[#c8a44b]/60 transition-all duration-500 shadow-xl hover:-translate-y-2" style={{ transitionDelay: '0.2s' }}>
             <div className="flex justify-center mb-6">
-              <ShieldCheck className="w-12 h-12 text-[#c8a44b]" strokeWidth={1.5} />
+              <div className="w-20 h-20 rounded-full border border-[#c8a44b]/30 flex items-center justify-center group-hover:bg-[#c8a44b] group-hover:border-[#c8a44b] transition-all duration-500 shadow-[0_0_15px_rgba(200,164,75,0.1)] group-hover:shadow-[0_0_25px_rgba(200,164,75,0.4)]">
+                <ShieldCheck className="w-8 h-8 text-[#c8a44b] group-hover:text-forest-deep transition-colors duration-500" strokeWidth={1.5} />
+              </div>
             </div>
             <h3 className="text-xl text-[#F5E6CA] font-heading font-medium mb-3">Asset Protection</h3>
             <p className="text-[#F5E6CA]/60 font-body text-sm leading-relaxed">

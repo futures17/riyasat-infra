@@ -33,9 +33,20 @@ const CTASection = () => {
           Our team will guide you through every aspect of your future sanctuary.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="#contact" className="luxury-btn-solid">Book Site Visit</a>
-          <a href="#contact" className="inline-flex items-center justify-center px-8 py-4 rounded-full text-sm font-medium tracking-wider uppercase font-body border border-cream/30 text-cream hover:bg-cream hover:text-forest-deep transition-all duration-300">Schedule Meeting</a>
+          <button 
+            onClick={() => window.location.href = "/book-visit"} 
+            className="luxury-btn-solid"
+          >
+            Book Site Visit
+          </button>
+          <button 
+            onClick={() => window.location.href = "/contact"} 
+            className="inline-flex items-center justify-center px-8 py-4 rounded-full text-sm font-medium tracking-wider uppercase font-body border border-cream/30 text-cream hover:uiverse-silver-button hover:border-transparent transition-all duration-300"
+          >
+            Schedule Meeting
+          </button>
         </div>
+
       </div>
     </section>
   );

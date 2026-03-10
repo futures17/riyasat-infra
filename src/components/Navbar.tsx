@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import { Home, Info, MapPin, Phone, CalendarCheck, X } from "lucide-react";
+import { Home, Info, MapPin, Phone, CalendarCheck, X, Menu } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import logo from "@/assets/logomain.png";
+
 
 const navItems = [
   { label: "Home", href: "/", isRoute: true },
@@ -89,7 +90,7 @@ const Navbar = () => {
         }`}
       >
         <nav
-          className={`w-full max-w-6xl flex items-center justify-between px-8 py-2 transition-all duration-500 bg-white/80 backdrop-blur-md shadow-[0_20px_50px_rgba(0,0,0,0.15)] rounded-full border border-blue-100/50`}
+          className={`w-full max-w-6xl flex items-center justify-between px-8 py-2 transition-all duration-500 bg-white/90 backdrop-blur-md shadow-[0_20px_50px_rgba(0,0,0,0.15)] rounded-full border border-gold/20`}
         >
           <button onClick={() => handleClick("#hero")} className="flex items-center gap-3">
             <img src={logo} alt="Riyasat Estate" className="h-8 md:h-10 object-contain drop-shadow-sm" />
@@ -100,7 +101,7 @@ const Navbar = () => {
               <button
                 key={item.label}
                 onClick={() => handleClick(item.href, item.isRoute)}
-                className="text-[11px] uppercase tracking-[0.22em] text-blue-900/80 hover:text-gold-dark transition-colors duration-300 font-body font-bold"
+                className="text-[11px] uppercase tracking-[0.22em] text-[#4A3B2C] hover:text-gold-dark transition-colors duration-300 font-body font-bold"
               >
                 {item.label}
               </button>
@@ -109,22 +110,39 @@ const Navbar = () => {
 
           <div className="flex items-center gap-2">
             <button 
-              className="hidden lg:flex items-center gap-2 bg-transparent border border-gold text-forest-deep px-6 py-2 rounded-full text-[11px] uppercase tracking-wider font-bold hover:bg-gold hover:text-forest-deep transition-all duration-300 shadow-sm"
-              onClick={() => handleClick("#contact")}
+              className="hidden lg:flex items-center justify-center bg-transparent border border-gold text-gold hover:bg-gold hover:text-forest-deep px-6 py-2 rounded-full text-[11px] uppercase tracking-widest font-bold transition-all duration-300 shadow-sm overflow-hidden relative group/btn"
+              onClick={() => navigate("/book-visit")}
             >
-              <span>Book Visit</span>
+              <span className="relative z-10">Book Visit</span>
+              <div className="absolute inset-0 bg-gold translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300 ease-out" />
             </button>
-            <button className="w-10 h-10 rounded-full flex items-center justify-center text-blue-900/60 hover:bg-blue-50 transition-colors">
+
+            <button className="w-10 h-10 rounded-full flex items-center justify-center text-[#4A3B2C]/60 hover:bg-gold/5 transition-colors">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
             </button>
             <button 
               onClick={() => setIsMobileMenuOpen(true)}
-              className="w-10 h-10 rounded-full flex items-center justify-center text-blue-900/60 hover:bg-blue-50 transition-colors"
+              className="w-10 h-10 rounded-full flex items-center justify-center text-[#4A3B2C]/60 hover:bg-gold/5 transition-colors"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 8h10"/><path d="M7 12h10"/><path d="M7 16h10"/></svg>
             </button>
           </div>
         </nav>
+      </div>
+
+      {/* Mobile Top Header with Hamburger */}
+      <div className={`fixed top-0 left-0 right-0 z-[60] md:hidden px-4 py-4 transition-all duration-500 ${scrolled ? "bg-forest-deep/80 backdrop-blur-md border-b border-gold/20" : "bg-transparent"}`}>
+        <div className="flex items-center justify-between">
+          <button onClick={() => handleClick("/")} className="flex items-center gap-2">
+            <img src={logo} alt="Riyasat" className="h-8 object-contain brightness-0 invert" />
+          </button>
+          <button 
+            onClick={() => setIsMobileMenuOpen(true)}
+            className="w-10 h-10 rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center text-gold"
+          >
+            <Menu size={20} />
+          </button>
+        </div>
       </div>
 
       {/* Mobile App-Style Bottom Nav */}
@@ -151,7 +169,7 @@ const Navbar = () => {
           })}
         </div>
       </nav>
-
+      
       {/* Full Screen Overlay Menu */}
       {isMobileMenuOpen && (
         <div className="fixed inset-0 z-[100] bg-forest-deep/95 backdrop-blur-xl flex flex-col justify-center items-center px-6 animate-in fade-in duration-300">

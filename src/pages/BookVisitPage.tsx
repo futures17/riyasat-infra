@@ -129,7 +129,7 @@ const BookVisitPage = () => {
              </div>
 
              <div className="mt-8 flex justify-center">
-               <button className="px-12 py-4 bg-transparent border border-[#c8a44b]/60 text-[#c8a44b] font-medium text-xs uppercase tracking-[0.2em] rounded-full hover:bg-[#c8a44b] hover:text-white transition-all duration-500 font-body shadow-[0_0_15px_rgba(200,164,75,0.1)] hover:scale-105">
+               <button className="luxury-btn-solid !py-4 !px-12">
                  Request Appointment
                </button>
              </div>

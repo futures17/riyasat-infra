@@ -122,23 +122,23 @@ const ReviewSection = () => {
         .rating label {
           float: right;
           cursor: pointer;
-          color: #d1d5db; /* gray-300 for unselected stars in light mode */
-          transition: color 0.3s, transform 0.3s, box-shadow 0.3s, filter 0.3s;
+          color: #FFD700; /* Star color set to yellow-golden */
+          opacity: 0.3; /* Default semi-transparent for unselected */
+          transition: color 0.3s, transform 0.3s, opacity 0.3s;
         }
 
         .rating label:before {
           content: '\\2605';
           font-size: 40px;
-          transition: color 0.3s;
         }
 
         .rating input:checked ~ label,
         .rating label:hover,
         .rating label:hover ~ label {
-          color: #bf953f; /* Enhanced golden color */
+          color: #FFD700;
+          opacity: 1; /* Full brightness on select/hover */
           transform: scale(1.15);
-          filter: drop-shadow(0 0 10px rgba(191,149,63,0.8));
-          transition: color 0.3s, transform 0.3s, box-shadow 0.3s, filter 0.3s;
+          filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.8));
           animation: bounce 0.5s ease-in-out alternate;
         }
 
