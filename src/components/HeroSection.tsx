@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { heroBannerImage } from "@/data/media";
 
 interface HeroSectionProps {
@@ -6,6 +7,7 @@ interface HeroSectionProps {
 }
 
 const HeroSection = ({ animationReady = false }: HeroSectionProps) => {
+  const navigate = useNavigate();
   const sectionRef = useRef<HTMLDivElement>(null);
   const hasAnimated = useRef(false);
 
@@ -96,7 +98,7 @@ const HeroSection = ({ animationReady = false }: HeroSectionProps) => {
       {/* Content Layer with mix-blend-difference for cinematic effect */}
       <div className="relative z-10 flex flex-col items-center justify-center h-full px-6 text-center text-white mix-blend-difference">
         <p className="hero-meta text-[10px] md:text-xs uppercase tracking-[0.45em] font-body mb-8 opacity-0">
-          Future Architecture
+          Build. Building. Beyond.
         </p>
 
         <h1 
@@ -112,20 +114,19 @@ const HeroSection = ({ animationReady = false }: HeroSectionProps) => {
         </h1>
 
         <p className="hero-desc text-sm md:text-lg font-body font-light tracking-[0.14em] mt-6 max-w-xl opacity-0">
-          Ultra-Premium Luxury Living Near Bhopal
+          Where Nature embraces Luxury — Estate living redefined, in Bhopal.
         </p>
 
-        <div className="hero-cta mt-10 opacity-0">
-          <a
-            href="#project"
-            className="inline-flex items-center justify-center px-8 py-4 rounded-full text-sm font-medium tracking-[0.15em] uppercase border border-white/30 hover:bg-white hover:text-black transition-all duration-300 backdrop-blur-sm"
-            onClick={(e) => {
-              e.preventDefault();
-              document.querySelector("#project")?.scrollIntoView({ behavior: "smooth" });
+        <div className="hero-cta mt-12 opacity-0">
+          <button
+            onClick={() => {
+              const el = document.getElementById("project");
+              if (el) el.scrollIntoView({ behavior: "smooth" });
             }}
+            className="inline-flex items-center justify-center px-12 py-4 rounded-full bg-transparent border border-white/60 text-white text-[11px] font-bold tracking-[0.2em] uppercase hover:bg-white hover:text-forest-deep transition-all duration-500 backdrop-blur-sm active:scale-95"
           >
             Explore Estate
-          </a>
+          </button>
         </div>
 
         {/* Scroll indicator */}

@@ -10,7 +10,21 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+.next
+.vercel
+.turbo
 *.local
+.env
+.env.*
+!.env.example
+coverage
+*.tsbuildinfo
+*.zip
+*.tgz
+*.tar.gz
+*.cache
+*.tmp
+*.bak
 
 # Editor directories and files
 .vscode/*
@@ -22,6 +36,18 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-riyasat-production.zip
-riyasat-netlify.zip
-netlify-ready
+
+# Deployment and generated artifacts
+build_log.txt
+build_output.txt
+backup/
+graphify-out/
+graphify/
+src/assets/scratch/
+src/assets/video/manager_avatar_backup.mp4
+src/assets/event/658004a4-8884-4e26-a7e6-002de7431c46 (1).jfif
+
+# Local agent tooling
+.agent/
+.agents/
+.graphifyignore

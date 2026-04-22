@@ -1,12 +1,31 @@
 import { useEffect, useRef } from "react";
-import { sliderImages } from "@/data/media";
+import { Link } from "react-router-dom";
+import img1 from "@/assets/event_home/event_home-1.webp";
+import img2 from "@/assets/event_home/event_home-2.webp";
+import img3 from "@/assets/event_home/event_home-3.webp";
+import img4 from "@/assets/event_home/event_home-4.webp";
+import img5 from "@/assets/event_home/event_home-5.webp";
+import img6 from "@/assets/event_home/event_home-6.webp";
+import img7 from "@/assets/event_home/event_home-7.webp";
+import img8 from "@/assets/event_home/event_home-8.webp";
+
+const eventImages = [
+  { src: img1, title: "Expo Participation", meta: "2026 Highlight" },
+  { src: img2, title: "Brand Presence", meta: "Industry Leader" },
+  { src: img3, title: "Awards Gala", meta: "Excellence" },
+  { src: img4, title: "Riyasat Connect", meta: "Networking" },
+  { src: img5, title: "Real Estate Summit", meta: "Keynote" },
+  { src: img6, title: "Grand Opening", meta: "Celebration" },
+  { src: img7, title: "Customer Meet", meta: "Community" },
+  { src: img8, title: "Vision 2030", meta: "Future Goals" },
+];
 
 const EstateSliderSection = () => {
   const trackRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
   // Duplicate the images to create seamless infinite loop
-  const allImages = [...sliderImages, ...sliderImages];
+  const allImages = [...eventImages, ...eventImages];
 
   useEffect(() => {
     const loadGSAP = async () => {
@@ -20,7 +39,7 @@ const EstateSliderSection = () => {
       const tween = gsap.to(track, {
         xPercent: -50,
         ease: "none",
-        duration: 12,
+        duration: 35, // Slower, more luxury feel
         repeat: -1,
       });
 
@@ -39,7 +58,7 @@ const EstateSliderSection = () => {
             end: "bottom 40%",
             toggleActions: "play reverse play reverse",
           },
-          backgroundColor: "#050505", // Deep cinematic black
+          backgroundColor: "#0A201C", // Dark green instead of black
           color: "#E3E1DC", // Cream text
           duration: 1.2,
           ease: "power2.inOut",
@@ -61,21 +80,16 @@ const EstateSliderSection = () => {
     <section ref={sectionRef} id="estate-slider" className="section-padding bg-[#b9cbb5] overflow-hidden text-[#1a1a1a]">
       <div className="max-w-7xl mx-auto mb-14 transition-colors duration-1000">
         <h2 className="font-heading font-light tracking-[0.02em] text-4xl md:text-6xl text-center mb-4">
-          Estate Motion <span className="gold-text italic">Gallery</span>
+          Moments & <span className="gold-text italic">Milestones</span>
         </h2>
         <p className="text-center text-muted-foreground font-body text-sm max-w-2xl mx-auto">
-          A sweeping view of the estate — from sunrise gates to evening poolscapes.
+          Experience the journey of trust — from grand award galas to exclusive site visits with our esteemed clientele.
         </p>
       </div>
 
-      {/* Infinite GSAP auto-scroll strip */}
       <div className="relative w-full overflow-hidden">
-        {/* Left fade */}
-        <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
-          style={{ background: "linear-gradient(to right, hsl(80 25% 85%), transparent)" }} />
-        {/* Right fade */}
-        <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
-          style={{ background: "linear-gradient(to left, hsl(80 25% 85%), transparent)" }} />
+        {/* Left fade (removed to fix blur/light issues) */}
+        {/* Right fade (removed to fix blur/light issues) */}
 
         <div
           ref={trackRef}
@@ -90,7 +104,7 @@ const EstateSliderSection = () => {
             >
               <img
                 src={item.src}
-                alt={item.alt}
+                alt={item.title}
                 loading={index < 6 ? "eager" : "lazy"}
                 decoding="async"
                 className="w-full h-full object-cover transition-transform duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.06] group-hover:brightness-105"

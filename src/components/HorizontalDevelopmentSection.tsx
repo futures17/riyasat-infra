@@ -1,9 +1,9 @@
 import { useEffect, useRef } from "react";
 import { Search, Map, Shield, Key } from "lucide-react";
-import gatedEntrance from "@/assets/grand-gated-estate-entrance.jpg";
-import modernDriveway from "@/assets/grand-modern-estate-driveway.jpg";
-import glassFacade from "@/assets/modern-farmhouse-glass-facade.jpg";
-import poolGarden from "@/assets/luxury-estate-pool-garden.jpg";
+import gatedEntrance from "@/assets/grand-gated-estate-entrance.webp";
+import modernDriveway from "@/assets/grand-modern-estate-driveway.webp";
+import glassFacade from "@/assets/modern-farmhouse-glass-facade.webp";
+import poolGarden from "@/assets/luxury-estate-pool-garden.webp";
 
 const developmentSteps = [
   {

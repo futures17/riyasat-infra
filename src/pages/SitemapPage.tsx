@@ -9,23 +9,9 @@ const SitemapPage = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    const setupLenis = async () => {
-      const Lenis = (await import("lenis")).default;
-      const lenis = new Lenis({
-        duration: 1.4,
-        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      });
-      lenis.scrollTo(0, { immediate: true });
-      function raf(time: number) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
-      }
-      requestAnimationFrame(raf);
-      return () => lenis.destroy();
-    };
-
     let cleanupLenis: (() => void) | undefined;
-    setupLenis().then((cleanup) => { cleanupLenis = cleanup; });
+    // setupLenis removed - using global Lenis from App.tsx
+
 
     const loadGSAP = async () => {
       const gsap = (await import("gsap")).default;
@@ -45,25 +31,24 @@ const SitemapPage = () => {
       title: "Estate Experience",
       links: [
         { name: "Home / Main Estate", path: "/" },
-        { name: "About the Project", path: "/about" },
-        { name: "Full Visual Gallery", path: "/gallery" },
-        { name: "Master Layout", path: "/master-layout" },
-        { name: "Amenities & Facilities", path: "/amenities" },
+        { name: "Green Glades Project", path: "/projects" },
+        { name: "Gallery & Visuals", path: "/gallery" },
+        { name: "Events & Celebrations", path: "/events" },
+        { name: "Inspirational Quotes", path: "/quotes" },
       ]
     },
     {
       title: "Acquisition & Details",
       links: [
-        { name: "Investment Details", path: "/investment" },
-        { name: "Location & Connectivity", path: "/location" },
-        { name: "Book a Visit", path: "/book-visit" },
+        { name: "About the Project", path: "/about" },
+        { name: "Book a Site Visit", path: "/book-visit" },
+        { name: "General Contact", path: "/contact" },
       ]
     },
     {
       title: "Corporate & Legal",
       links: [
         { name: "Riyasat Developer", path: "/developer" },
-        { name: "General Contact", path: "/contact" },
         { name: "Privacy Policy", path: "/privacy" },
         { name: "Terms & Conditions", path: "/terms" },
       ]

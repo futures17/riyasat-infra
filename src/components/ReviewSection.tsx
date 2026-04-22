@@ -1,4 +1,22 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { supabase } from "@/lib/supabase";
+import { toast } from "sonner";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+
+const normalizePhoneToE164 = (value: string) => {
+  const digits = value.replace(/\D/g, "");
+  if (digits.length < 10) return "";
+
+  const lastTenDigits = digits.slice(-10);
+  return `+91${lastTenDigits}`;
+};
 
 const stackData = [
   {
@@ -19,6 +37,79 @@ const stackData = [
 ];
 
 const ReviewSection = () => {
+  const [rating, setRating] = useState<number>(0);
+  const [comment, setComment] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
+  const [mobileNumber, setMobileNumber] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handlePreSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (rating === 0 || comment.trim() === "") {
+      toast.error("Please provide both rating and comments.");
+      return;
+    }
+    // Assume user is not logged in for Phase 3 -> show mobile verify popup
+    setShowPopup(true);
+  };
+
+  const submitFeedback = async () => {
+    if (isSubmitting) {
+      return;
+    }
+
+    const normalizedPhone = normalizePhoneToE164(mobileNumber);
+    if (!normalizedPhone) {
+      toast.error("Please enter a valid mobile number.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      let resolvedName = "";
+
+      try {
+        const { data: matchedContact } = await supabase
+          .from("contacts")
+          .select("name")
+          .eq("phone", normalizedPhone)
+          .order("created_at", { ascending: false })
+          .limit(1)
+          .maybeSingle();
+
+        resolvedName = matchedContact?.name?.trim() || "";
+      } catch {
+        resolvedName = "";
+      }
+
+      const fallbackName = `Verified User ${normalizedPhone.slice(-4)}`;
+      const { data, error } = await supabase.from('feedback').insert([{
+        user_name: resolvedName || fallbackName,
+        rating,
+        comment: comment.trim(),
+        phone_e164: normalizedPhone,
+        status: "hidden",
+      }]).select();
+      
+      if (error) {
+        console.error("Supabase Error:", error);
+        throw error;
+      }
+      
+      console.log("Inserted Feedback:", data);
+      toast.success("Thank you for your valuable feedback!");
+      setRating(0);
+      setComment("");
+      setMobileNumber("");
+      setShowPopup(false);
+    } catch(err: unknown) {
+      const errorMsg = err instanceof Error ? err.message : "Failed to submit feedback.";
+      toast.error(errorMsg);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <section className="py-[10vh] pista-bg text-foreground relative overflow-hidden border-t border-[#c8a44b]/20">
       <div className="w-full max-w-[1400px] mx-auto px-6">
@@ -43,7 +134,7 @@ const ReviewSection = () => {
               <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/0dccab47-16b0-4716-9e1a-b97f124e3031_1600w.webp" alt="Dream Place" className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:scale-110 transition-transform duration-[1500ms]" />
               
               <div className="absolute inset-0 bg-gradient-to-br from-[#0a0f0d]/90 via-[#0a0f0d]/80 to-[#1a201c]/90"></div>
-              <div className="absolute inset-0 bg-[url('/noise.png')] opacity-20 mix-blend-overlay"></div>
+              <div className="noise-texture absolute inset-0 opacity-20 mix-blend-overlay"></div>
               
               {/* Subtle glow */}
               <div className="absolute inset-0 bg-[#c8a44b]/0 group-hover:bg-[#c8a44b]/20 transition-colors duration-700 pointer-events-none mix-blend-overlay" />
@@ -67,24 +158,33 @@ const ReviewSection = () => {
             </div>
             
             <div className="bg-white/60 backdrop-blur-md border border-[#c8a44b]/30 rounded-3xl p-6 sm:p-8 md:p-10 shadow-xl relative overflow-hidden group hover:border-[#c8a44b]/60 transition-colors duration-500">
+              {/* Background Image */}
+              <img 
+                src="/src/assets/luxury-villa-poolside-deck.webp" 
+                alt="" 
+                className="absolute inset-0 w-full h-full object-cover opacity-[0.25] pointer-events-none group-hover:scale-105 transition-transform duration-700" 
+              />
               {/* Golden accent glow */}
               <div className="absolute top-0 right-0 w-40 h-40 bg-[#c8a44b]/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none group-hover:bg-[#c8a44b]/20 transition-colors duration-500"></div>
               
-              <form className="relative z-10 flex flex-col gap-8" onSubmit={(e) => e.preventDefault()}>
+              <form className="relative z-10 flex flex-col gap-8" onSubmit={handlePreSubmit}>
                 
                 <div className="flex flex-col gap-3">
                   <label className="text-sm text-forest-deep/80 font-body uppercase tracking-wider font-bold">Rate your experience</label>
                   <div className="rating flex flex-row-reverse justify-end gap-2">
-                    <input type="radio" id="star5" name="rating" value="5" />
-                    <label htmlFor="star5"></label>
-                    <input type="radio" id="star4" name="rating" value="4" />
-                    <label htmlFor="star4"></label>
-                    <input type="radio" id="star3" name="rating" value="3" />
-                    <label htmlFor="star3"></label>
-                    <input type="radio" id="star2" name="rating" value="2" />
-                    <label htmlFor="star2"></label>
-                    <input type="radio" id="star1" name="rating" value="1" />
-                    <label htmlFor="star1"></label>
+                    {[5, 4, 3, 2, 1].map((star) => (
+                      <React.Fragment key={star}>
+                        <input 
+                          type="radio" 
+                          id={`star${star}`} 
+                          name="rating" 
+                          value={star} 
+                          checked={rating === star}
+                          onChange={() => setRating(star)}
+                        />
+                        <label htmlFor={`star${star}`}></label>
+                      </React.Fragment>
+                    ))}
                   </div>
                 </div>
 
@@ -93,12 +193,14 @@ const ReviewSection = () => {
                   <textarea 
                     id="comment" 
                     rows={4}
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
                     className="w-full bg-white/80 border border-[#c8a44b]/20 rounded-xl p-4 text-forest-deep focus:border-[#c8a44b] focus:ring-1 focus:ring-[#c8a44b] outline-none transition-all resize-none font-body shadow-inner placeholder:text-gray-400 font-medium"
                     placeholder="Tell us what you think..."
                   ></textarea>
                 </div>
 
-                <button className="Btn mt-2 w-full sm:w-auto self-start uppercase tracking-[0.2em] font-body" type="submit">
+                <button disabled={isSubmitting} className="Btn mt-2 w-full sm:w-auto self-start uppercase tracking-[0.2em] font-body disabled:opacity-60" type="submit">
                   Submit Feedback
                 </button>
               </form>
@@ -106,6 +208,42 @@ const ReviewSection = () => {
           </div>
 
         </div>
+
+        {/* Verification Popup */}
+        <Dialog open={showPopup} onOpenChange={setShowPopup}>
+          <DialogContent className="sm:max-w-md border-gold/30 bg-background/95 backdrop-blur-md">
+            <DialogHeader>
+              <DialogTitle className="text-forest-deep font-heading text-2xl">Verify to Comment</DialogTitle>
+              <DialogDescription className="font-body text-muted-foreground">
+                Please enter your registered mobile number to verify you are a genuine client before submitting feedback.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="flex flex-col gap-4 py-4">
+              <div className="flex flex-col gap-2">
+                <label htmlFor="mobile" className="text-xs uppercase tracking-wider font-bold text-forest-deep">Mobile Number</label>
+                <input
+                  id="mobile"
+                  type="tel"
+                  placeholder="+91"
+                  value={mobileNumber}
+                  onChange={(e) => setMobileNumber(e.target.value)}
+                  className="w-full px-4 py-3 rounded-lg border border-gold/30 bg-white focus:outline-none focus:ring-2 focus:ring-gold/50 font-body text-sm"
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <button 
+                onClick={submitFeedback}
+                disabled={isSubmitting}
+                className="luxury-btn-solid w-full my-2 disabled:opacity-50"
+              >
+                {isSubmitting ? "Verifying & Submitting..." : "Verify & Submit Feedback"}
+              </button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+
       </div>
       <style>{`
         /* From Uiverse.io by ForzDz */ 

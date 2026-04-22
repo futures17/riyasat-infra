@@ -55,17 +55,17 @@ const AmenitiesSection = () => {
           Every detail crafted for comfort, luxury, and an elevated lifestyle
         </p>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5">
+        <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-5">
           {amenities.map((amenity) => (
             <div
               key={amenity.title}
-              className="amenity-card luxury-card p-6 md:p-8 flex flex-col items-center text-center group"
+              className="amenity-card luxury-card p-3 md:p-8 flex flex-col items-center text-center group"
             >
-              <div className="icon-gold-ring w-14 h-14 rounded-full flex items-center justify-center mb-4 bg-pista/60 group-hover:bg-gold/20 transition-colors duration-500">
-                <amenity.icon className="w-6 h-6 text-forest group-hover:text-gold transition-colors duration-500" />
+              <div className="icon-gold-ring w-10 h-10 md:w-14 md:h-14 rounded-full flex items-center justify-center mb-2 md:mb-4 bg-pista/60 group-hover:bg-gold/20 transition-colors duration-500">
+                <amenity.icon className="w-5 h-5 md:w-6 md:h-6 text-forest group-hover:text-gold transition-colors duration-500" />
               </div>
-              <h3 className="font-heading text-lg md:text-xl text-foreground mb-1">{amenity.title}</h3>
-              <p className="text-muted-foreground text-xs font-body">{amenity.desc}</p>
+              <h3 className="font-heading text-[10px] md:text-xl text-foreground mb-1 leading-tight">{amenity.title}</h3>
+              <p className="hidden md:block text-muted-foreground text-xs font-body">{amenity.desc}</p>
             </div>
           ))}
         </div>

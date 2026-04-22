@@ -5,11 +5,25 @@ const ScrollToTop = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    // Reset browser scroll
-    window.scrollTo(0, 0);
-    
-    // Reset Lenis scroll if present (Lenis is likely used in other pages)
-    // We try to find the lenis instance if it's attached to window or just rely on the page-specific resets
+    // Reset native scroll immediately
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+
+    // Use global lenis if available
+    if (window.lenis) {
+      window.lenis.scrollTo(0, { immediate: true });
+    }
+
+    // Secondary reset after short delay to handle late-rendering content or lenis timing
+    const timer = setTimeout(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+      if (window.lenis) {
+        window.lenis.scrollTo(0, { immediate: true });
+      }
+    }, 100);
+
+    return () => clearTimeout(timer);
   }, [pathname]);
 
   return null;

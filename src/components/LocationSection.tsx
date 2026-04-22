@@ -32,7 +32,7 @@ const LocationSection = () => {
   return (
     <section id="location" className="section-padding pista-bg">
       <div className="max-w-6xl mx-auto">
-        <h2 className="luxury-heading text-4xl md:text-6xl mb-8 font-bold">
+        <h2 className="luxury-heading location-heading text-4xl md:text-6xl mb-8 font-bold">
           Location & <span className="gold-text italic">Master Layout</span>
         </h2>
 

@@ -1,23 +1,26 @@
 import { useState, useEffect } from "react";
-import { Home, Info, MapPin, Phone, CalendarCheck, X, Menu } from "lucide-react";
+import { Home, Info, MapPin, Phone, CalendarCheck, X, Menu, Briefcase } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
-import logo from "@/assets/logomain.png";
-
+import logo from "@/assets/logomain.webp";
+import greenGladesGoldLogo from "@/assets/green_glades/logo/green_glades-gold.webp";
+import greenGladesWhiteLogo from "@/assets/green_glades/logo/green_glades_white.webp";
+import natureTextLogo from "@/assets/green_glades/logo/nature_text.webp";
 
 const navItems = [
   { label: "Home", href: "/", isRoute: true },
   { label: "About Us", href: "/about", isRoute: true },
-  { label: "Amenities", href: "/amenities", isRoute: true },
-  { label: "Gallery", href: "/gallery", isRoute: true },
-  { label: "Investment", href: "/investment", isRoute: true },
+  { label: "Events", href: "/events", isRoute: true },
+  { label: "Projects", href: "/projects", isRoute: true },
+  { label: "Career", href: "/auth/signup-member", isRoute: true },
   { label: "Contact", href: "/contact", isRoute: true },
 ];
 
 const mobileNavItems = [
   { label: "Home", href: "/", icon: Home, isRoute: true },
   { label: "About", href: "/about", icon: Info, isRoute: true },
-  { label: "Book", href: "/book-visit", icon: CalendarCheck, isRoute: true },
-  { label: "Map", href: "/location", icon: MapPin, isRoute: true },
+  { label: "Events", href: "/events", icon: CalendarCheck, isRoute: true },
+  { label: "Projects", href: "/projects", icon: MapPin, isRoute: true },
+  { label: "Career", href: "/auth/signup-member", icon: Briefcase, isRoute: true },
   { label: "Contact", href: "/contact", icon: Phone, isRoute: true },
 ];
 
@@ -92,8 +95,11 @@ const Navbar = () => {
         <nav
           className={`w-full max-w-6xl flex items-center justify-between px-8 py-2 transition-all duration-500 bg-white/90 backdrop-blur-md shadow-[0_20px_50px_rgba(0,0,0,0.15)] rounded-full border border-gold/20`}
         >
-          <button onClick={() => handleClick("#hero")} className="flex items-center gap-3">
-            <img src={logo} alt="Riyasat Estate" className="h-8 md:h-10 object-contain drop-shadow-sm" />
+          <button onClick={() => handleClick("#hero")} className="flex items-center gap-2">
+            <img src={location.pathname === "/projects" ? greenGladesGoldLogo : logo} alt="Riyasat" className="h-10 md:h-12 object-contain" />
+            {location.pathname === "/projects" && (
+              <img src={natureTextLogo} alt="Nature" className="h-4 md:h-5 object-contain brightness-0 opacity-40" />
+            )}
           </button>
 
           <div className="flex items-center gap-7">
@@ -101,7 +107,7 @@ const Navbar = () => {
               <button
                 key={item.label}
                 onClick={() => handleClick(item.href, item.isRoute)}
-                className="text-[11px] uppercase tracking-[0.22em] text-[#4A3B2C] hover:text-gold-dark transition-colors duration-300 font-body font-bold"
+                className="text-[13px] text-[#4A3B2C] hover:text-gold-dark transition-colors duration-300 font-body font-semibold"
               >
                 {item.label}
               </button>
@@ -110,11 +116,10 @@ const Navbar = () => {
 
           <div className="flex items-center gap-2">
             <button 
-              className="hidden lg:flex items-center justify-center bg-transparent border border-gold text-gold hover:bg-gold hover:text-forest-deep px-6 py-2 rounded-full text-[11px] uppercase tracking-widest font-bold transition-all duration-300 shadow-sm overflow-hidden relative group/btn"
+              className="hidden lg:inline-flex Btn !h-9 !text-[11px] !min-w-0"
               onClick={() => navigate("/book-visit")}
             >
-              <span className="relative z-10">Book Visit</span>
-              <div className="absolute inset-0 bg-gold translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300 ease-out" />
+              Book Visit
             </button>
 
             <button className="w-10 h-10 rounded-full flex items-center justify-center text-[#4A3B2C]/60 hover:bg-gold/5 transition-colors">
@@ -134,7 +139,10 @@ const Navbar = () => {
       <div className={`fixed top-0 left-0 right-0 z-[60] md:hidden px-4 py-4 transition-all duration-500 ${scrolled ? "bg-forest-deep/80 backdrop-blur-md border-b border-gold/20" : "bg-transparent"}`}>
         <div className="flex items-center justify-between">
           <button onClick={() => handleClick("/")} className="flex items-center gap-2">
-            <img src={logo} alt="Riyasat" className="h-8 object-contain brightness-0 invert" />
+            <img src={location.pathname === "/projects" ? greenGladesGoldLogo : logo} alt="Riyasat" className="h-9 object-contain" />
+            {location.pathname === "/projects" && (
+              <img src={natureTextLogo} alt="Nature" className="h-3 object-contain brightness-0 opacity-40" />
+            )}
           </button>
           <button 
             onClick={() => setIsMobileMenuOpen(true)}
@@ -170,32 +178,73 @@ const Navbar = () => {
         </div>
       </nav>
       
-      {/* Full Screen Overlay Menu */}
-      {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-[100] bg-forest-deep/95 backdrop-blur-xl flex flex-col justify-center items-center px-6 animate-in fade-in duration-300">
-          <button 
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="absolute top-10 right-6 w-12 h-12 rounded-full border border-[#c8a44b]/30 flex items-center justify-center text-[#c8a44b] hover:bg-[#c8a44b] hover:text-white transition-all shadow-[0_0_15px_rgba(200,164,75,0.2)]"
-          >
-            <X size={24} />
-          </button>
+      {/* Side Menu Drawer */}
+      <div className={`fixed inset-0 z-[100] transition-all duration-500 ${isMobileMenuOpen ? "visible" : "invisible"}`}>
+        {/* Overlay backdrop */}
+        <div 
+          className={`absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-500 ${isMobileMenuOpen ? "opacity-100" : "opacity-0"}`}
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+        
+        {/* Drawer Content */}
+        <div className={`absolute top-0 right-0 h-full w-[80%] max-w-[400px] bg-forest-deep border-l border-gold/20 shadow-[-20px_0_50px_rgba(0,0,0,0.5)] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"}`}>
+          <div className="flex flex-col h-full p-8 relative">
+            <button 
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="absolute top-6 right-6 w-10 h-10 rounded-full border border-gold/20 flex items-center justify-center text-gold/60 hover:text-gold hover:bg-gold/10 transition-all"
+            >
+              <X size={20} />
+            </button>
 
-          <img src={logo} alt="Riyasat" className="h-16 mb-12 brightness-0 invert" />
+            <div className="mt-12 mb-16">
+              <img src={location.pathname === "/projects" ? greenGladesGoldLogo : logo} alt="Riyasat" className="h-16 object-contain" />
+            </div>
 
-          <div className="flex flex-col items-center gap-6 w-full max-w-sm overflow-y-auto py-10 no-scrollbar">
-            <button onClick={() => handleMobileMenuClick("/")} className="text-[#F5E6CA] font-heading text-2xl hover:text-[#c8a44b] transition-colors">Home</button>
-            <button onClick={() => handleMobileMenuClick("/about")} className="text-[#F5E6CA] font-heading text-2xl hover:text-[#c8a44b] transition-colors">About Us</button>
-            <button onClick={() => handleMobileMenuClick("/master-layout")} className="text-[#F5E6CA] font-heading text-2xl hover:text-[#c8a44b] transition-colors">Master Layout</button>
-            <button onClick={() => handleMobileMenuClick("/amenities")} className="text-[#F5E6CA] font-heading text-2xl hover:text-[#c8a44b] transition-colors">Amenities</button>
-            <button onClick={() => handleMobileMenuClick("/gallery")} className="text-[#F5E6CA] font-heading text-2xl hover:text-[#c8a44b] transition-colors">Full Gallery</button>
-            <button onClick={() => handleMobileMenuClick("/investment")} className="text-[#F5E6CA] font-heading text-2xl hover:text-[#c8a44b] transition-colors">Investment Details</button>
-            <button onClick={() => handleMobileMenuClick("/location")} className="text-[#F5E6CA] font-heading text-2xl hover:text-[#c8a44b] transition-colors">Location</button>
-            <button onClick={() => handleMobileMenuClick("/developer")} className="text-[#F5E6CA] font-heading text-2xl hover:text-[#c8a44b] transition-colors">The Developer</button>
-            <button onClick={() => handleMobileMenuClick("/book-visit")} className="bg-[#c8a44b] text-white px-8 py-3 rounded-full font-body text-sm uppercase tracking-widest font-bold mt-4 shadow-[0_0_20px_rgba(200,164,75,0.4)]">Book a Visit</button>
-            <button onClick={() => handleMobileMenuClick("/contact")} className="text-[#c8a44b] font-body text-sm uppercase tracking-widest font-bold mt-2">Contact Us</button>
+            <div className="flex flex-col gap-8">
+              {[
+                { label: "Home", path: "/" },
+                { label: "About Us", path: "/about" },
+                { label: "Events", path: "/events" },
+                { label: "Projects", path: "/projects" },
+                { label: "Career", path: "/auth/signup-member" },
+                { label: "Login", path: "/auth/login" },
+                { label: "Contact Us", path: "/contact" },
+              ].map((item, idx) => (
+                <button 
+                  key={item.label}
+                  onClick={() => handleMobileMenuClick(item.path)}
+                  className="text-[#F5E6CA] font-heading text-3xl hover:text-gold transition-all hover:translate-x-2 text-left flex items-center gap-4 group"
+                  style={{ transitionDelay: `${idx * 50}ms` }}
+                >
+                  <span className="text-[10px] text-gold/40 font-body group-hover:text-gold transition-colors">0{idx + 1}.</span>
+                  {item.label}
+                </button>
+              ))}
+            </div>
+
+            <div className="mt-auto flex flex-col gap-4">
+              <button 
+                onClick={() => handleMobileMenuClick("/book-visit")}
+                className="w-full bg-gold text-white py-4 rounded-xl font-body text-xs uppercase tracking-[0.2em] font-bold shadow-[0_10px_30px_rgba(212,175,55,0.3)] hover:shadow-[0_15px_40px_rgba(212,175,55,0.4)] transition-all active:scale-[0.98]"
+              >
+                Book a Visit
+              </button>
+              <button 
+                onClick={() => handleMobileMenuClick("/contact")}
+                className="w-full border border-gold/30 text-gold py-4 rounded-xl font-body text-xs uppercase tracking-[0.2em] font-bold hover:bg-gold/5 transition-all"
+              >
+                Contact Us
+              </button>
+            </div>
+            
+            <div className="mt-12 flex items-center gap-4">
+               <div className="h-[1px] flex-grow bg-gold/10" />
+               <span className="text-[10px] text-gold/30 uppercase tracking-widest">Premium Estate</span>
+               <div className="h-[1px] flex-grow bg-gold/10" />
+            </div>
           </div>
         </div>
-      )}
+      </div>
     </>
   );
 };

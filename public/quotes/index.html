@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Motivation</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Segoe UI','Noto Sans Devanagari',sans-serif;background:#fff;color:#1a1a1a;padding:36px 20px;max-width:820px;margin:0 auto}
+    h1{text-align:center;font-size:1.35rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#0f2e1a;margin-bottom:4px}
+    .sub{text-align:center;font-size:.68rem;color:#aaa;letter-spacing:.18em;text-transform:uppercase;margin-bottom:28px}
+    ol{list-style:none;counter-reset:q}
+    li{counter-increment:q;display:flex;gap:10px;padding:11px 0;border-bottom:1px solid #f0f0f0;line-height:1.72;font-size:.94rem;align-items:flex-start}
+    li::before{content:counter(q)".";min-width:34px;font-weight:700;font-size:.7rem;color:#1B3B2A;padding-top:4px;flex-shrink:0}
+    li:hover{background:#f9fdfb;border-radius:4px}
+    footer{text-align:center;font-size:.65rem;color:#ccc;margin-top:40px;letter-spacing:.1em}
+    #status{text-align:center;padding:60px 20px;color:#999}
+  </style>
+</head>
+<body>
+  <h1>Daily Motivation</h1>
+  <p class="sub" id="subtitle">Loading...</p>
+  <ol id="list"><li id="status">Loading quotes...</li></ol>
+  <footer>&copy; 2026 Riyasat Infra &mdash; AI by Pranav Sahu</footer>
+  <script>
+    fetch('/data/quotes.json')
+      .then(r => { if(!r.ok) throw new Error(r.status); return r.json(); })
+      .then(quotes => {
+        document.getElementById('subtitle').textContent =
+          'Total ' + quotes.length + ' Quotes — Riyasat Infra';
+        const ol = document.getElementById('list');
+        ol.innerHTML = '';
+        quotes.forEach(q => {
+          const li = document.createElement('li');
+          li.textContent = q.text;
+          ol.appendChild(li);
+        });
+      })
+      .catch(() => {
+        document.getElementById('status').style.cssText = 'padding:60px;color:#c00;text-align:center';
+        document.getElementById('status').textContent =
+          'Error loading quotes. Make sure npm run dev is running.';
+      });
+  </script>
+</body>
+</html>

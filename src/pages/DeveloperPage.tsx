@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Building2, Award, MapPin, Target, Shield, Users } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import LuxuryFooter from "@/components/LuxuryFooter";
 
@@ -8,24 +9,6 @@ const DeveloperPage = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-
-    const setupLenis = async () => {
-      const Lenis = (await import("lenis")).default;
-      const lenis = new Lenis({
-        duration: 1.4,
-        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      });
-      lenis.scrollTo(0, { immediate: true });
-      function raf(time: number) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
-      }
-      requestAnimationFrame(raf);
-      return () => lenis.destroy();
-    };
-
-    let cleanupLenis: (() => void) | undefined;
-    setupLenis().then((cleanup) => { cleanupLenis = cleanup; });
 
     const loadGSAP = async () => {
       const gsap = (await import("gsap")).default;
@@ -55,7 +38,6 @@ const DeveloperPage = () => {
     };
 
     loadGSAP();
-    return () => { cleanupLenis?.(); };
   }, []);
 
   return (
@@ -82,7 +64,7 @@ const DeveloperPage = () => {
       <section className="py-12 px-6 md:px-12 max-w-5xl mx-auto mb-20">
         <div className="dev-content-reveal bg-forest-deep text-cream rounded-[2rem] p-10 md:p-16 border border-[#c8a44b]/30 shadow-2xl relative overflow-hidden">
           {/* Subtle noise/texture overlay for the dark card */}
-          <div className="absolute inset-0 bg-[url('/noise.png')] opacity-10 mix-blend-overlay pointer-events-none"></div>
+          <div className="noise-texture absolute inset-0 opacity-10 mix-blend-overlay pointer-events-none"></div>
 
           <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <div>
@@ -108,23 +90,32 @@ const DeveloperPage = () => {
             </div>
 
             <div className="bg-[#0a0f0d] border border-[#c8a44b]/20 p-8 rounded-2xl flex flex-col items-center justify-center text-center h-full min-h-[300px]">
-               <div className="w-20 h-20 rounded-full border border-[#c8a44b]/40 flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(200,164,75,0.15)]">
-                 <span className="font-heading text-3xl text-[#c8a44b]">R</span>
+               <div className="w-20 h-20 rounded-full border border-[#c8a44b]/40 flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(200,164,75,0.15)] bg-gold/5 group">
+                 <Building2 className="w-10 h-10 text-[#c8a44b] transition-transform duration-500 group-hover:scale-110" />
                </div>
                <h3 className="font-heading text-3xl mb-2 text-[#F5E6CA]">Riyasat Infra</h3>
                <p className="font-body text-xs uppercase tracking-widest text-cream/50 mb-8">Established Developers</p>
                
                <div className="w-full space-y-4">
                  <div className="flex justify-between items-center border-b border-white/10 pb-2">
-                   <span className="font-body text-sm text-cream/60">Delivered</span>
+                   <div className="flex items-center gap-2">
+                     <Award size={14} className="text-gold/60" />
+                     <span className="font-body text-sm text-cream/60">Delivered</span>
+                   </div>
                    <span className="font-heading text-[#c8a44b]">500K+ SQ.FT.</span>
                  </div>
                  <div className="flex justify-between items-center border-b border-white/10 pb-2">
-                   <span className="font-body text-sm text-cream/60">Focus</span>
+                   <div className="flex items-center gap-2">
+                     <Target size={14} className="text-gold/60" />
+                     <span className="font-body text-sm text-cream/60">Focus</span>
+                   </div>
                    <span className="font-heading text-[#c8a44b]">Luxury Estates</span>
                  </div>
                  <div className="flex justify-between items-center">
-                   <span className="font-body text-sm text-cream/60">Base</span>
+                   <div className="flex items-center gap-2">
+                     <MapPin size={14} className="text-gold/60" />
+                     <span className="font-body text-sm text-cream/60">Base</span>
+                   </div>
                    <span className="font-heading text-[#c8a44b]">Bhopal, MP</span>
                  </div>
                </div>

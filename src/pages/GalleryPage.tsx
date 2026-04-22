@@ -8,67 +8,33 @@ const GalleryPage = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // Scroll to top on mount
-    window.scrollTo(0, 0);
+  const loadGSAP = async () => {
+    const gsap = (await import("gsap")).default;
+    const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+    gsap.registerPlugin(ScrollTrigger);
 
-    // Setup lenis smooth scroll
-    const setupLenis = async () => {
-      window.scrollTo(0, 0);
-      const Lenis = (await import("lenis")).default;
-      const lenis = new Lenis({
-        duration: 1.4,
-        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        touchMultiplier: 1.5,
-      });
-      lenis.scrollTo(0, { immediate: true });
-      function raf(time: number) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
+    if (!sectionRef.current) return;
+
+    gsap.fromTo(
+      ".gallery-page-item",
+      { y: 50, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+        },
       }
-      requestAnimationFrame(raf);
-      return () => lenis.destroy();
-    };
+    );
+  };
 
-    let cleanupLenis: (() => void) | undefined;
-    setupLenis().then((cleanup) => { cleanupLenis = cleanup; });
-
-    // GSAP scroll reveals
-    const loadGSAP = async () => {
-      const gsap = (await import("gsap")).default;
-      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
-      gsap.registerPlugin(ScrollTrigger);
-
-      // Page fade in
-      gsap.fromTo(
-        ".gallery-page-hero",
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 1, ease: "power3.out", delay: 0.1 }
-      );
-
-      // Staggered image reveal
-      gsap.utils.toArray<HTMLElement>(".gallery-page-item").forEach((item, i) => {
-        gsap.fromTo(
-          item,
-          { y: 50, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.8,
-            ease: "power3.out",
-            delay: (i % 4) * 0.05,
-            scrollTrigger: {
-              trigger: item,
-              start: "top 95%",
-            },
-          }
-        );
-      });
-    };
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
     loadGSAP();
-
-    return () => { cleanupLenis?.(); };
   }, []);
 
   return (

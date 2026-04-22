@@ -9,23 +9,9 @@ const TermsConditionsPage = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
 
-    const setupLenis = async () => {
-      const Lenis = (await import("lenis")).default;
-      const lenis = new Lenis({
-        duration: 1.4,
-        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      });
-      lenis.scrollTo(0, { immediate: true });
-      function raf(time: number) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
-      }
-      requestAnimationFrame(raf);
-      return () => lenis.destroy();
-    };
-
     let cleanupLenis: (() => void) | undefined;
-    setupLenis().then((cleanup) => { cleanupLenis = cleanup; });
+    // setupLenis removed - using global Lenis from App.tsx
+
 
     const loadGSAP = async () => {
       const gsap = (await import("gsap")).default;
@@ -81,7 +67,7 @@ const TermsConditionsPage = () => {
             Riyasat Infra shall not be legally held liable for any inaccuracies, errors, or omissions regarding the project details displayed. Final agreements will be based solely on the formal physical contracts signed between the acquiring party and the developer.
           </p>
           
-          <p className="text-sm mt-12 text-gray-500">Last Updated: March 2026</p>
+          <p className="text-sm mt-12 text-gray-500">Last Updated: April 2026</p>
         </div>
       </div>
 

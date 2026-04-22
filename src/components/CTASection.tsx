@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import poolAmenity from "@/assets/pool-amenity.jpg";
+import poolAmenity from "@/assets/pool-amenity.webp";
 
 const CTASection = () => {
   useEffect(() => {
@@ -24,7 +24,7 @@ const CTASection = () => {
       </div>
 
       <div className="cta-content relative z-10 text-center px-6 max-w-3xl">
-        <h2 className="luxury-heading text-4xl md:text-6xl lg:text-7xl text-cream mb-6">
+        <h2 className="luxury-heading normal-case text-4xl md:text-6xl lg:text-7xl text-cream mb-6">
           Let's find that place<br />
           <span className="gold-text italic">you've been dreaming about</span>
         </h2>

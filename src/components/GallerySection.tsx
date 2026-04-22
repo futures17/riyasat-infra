@@ -1,11 +1,11 @@
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import img1 from "@/assets/panoramic-hillside-estate-pool.png";
-import img2 from "@/assets/terraced-rose-garden-estate.png";
-import img3 from "@/assets/luxury-villa-poolside-deck.jpg";
-import img4 from "@/assets/estate-concept-collage-vertical.png";
-import img5 from "@/assets/tropical-retreat-lawn.jpg";
-import img6 from "@/assets/zen-courtyard-water-garden.jpg";
+import img1 from "@/assets/panoramic-hillside-estate-pool.webp";
+import img2 from "@/assets/terraced-rose-garden-estate.webp";
+import img3 from "@/assets/luxury-villa-poolside-deck.webp";
+import img4 from "@/assets/estate-concept-collage-vertical.webp";
+import img5 from "@/assets/tropical-retreat-lawn.webp";
+import img6 from "@/assets/zen-courtyard-water-garden.webp";
 
 const homepageImages = [
   { src: img1, alt: "Panoramic Estate View", colSpan: "col-span-1 md:col-span-3", aspect: "aspect-[16/9] md:aspect-[21/9]" },

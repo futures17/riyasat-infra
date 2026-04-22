@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import IntroSection from "@/components/IntroSection";
 import StorytellingSection from "@/components/StorytellingSection";
-import GallerySection from "@/components/GallerySection";
+import InvestmentExcellenceSection from "@/components/InvestmentExcellenceSection";
 import EstateSliderSection from "@/components/EstateSliderSection";
 import HorizontalDevelopmentSection from "@/components/HorizontalDevelopmentSection";
 import StackedFacilitiesSection from "@/components/StackedFacilitiesSection";
@@ -40,20 +40,6 @@ const Index = () => {
 
   useEffect(() => {
     if (!loaderDone) return;
-
-    const lenis = new Lenis({
-      duration: 1.4,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      touchMultiplier: 1.5,
-    });
-
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-
-    return () => lenis.destroy();
   }, [loaderDone]);
 
   return (
@@ -67,7 +53,7 @@ const Index = () => {
         <HeroSection animationReady={loaderDone} />
         <IntroSection />
         <StorytellingSection />
-        <GallerySection />
+        <InvestmentExcellenceSection />
         
         {/* Curved Arrow Transition Section */}
         <section className="py-24 flex flex-col items-center text-center bg-background">
@@ -90,7 +76,7 @@ const Index = () => {
         <ReviewSection />
         <TestimonialsSection />
         <LocationSection />
-        <ContactSection />
+        <ContactSection sourcePage="home" />
       </div>
 
       <div ref={footerRef} className="lg:fixed bottom-0 left-0 right-0 z-0 flex flex-col justify-end bg-[#0B1512]">

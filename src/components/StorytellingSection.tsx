@@ -43,7 +43,7 @@ const StorytellingSection = () => {
   return (
     <section ref={sectionRef} id="project" className="section-padding pista-bg overflow-hidden">
       <div className="max-w-6xl mx-auto">
-        <h2 className="luxury-heading text-4xl md:text-6xl lg:text-7xl mb-8 font-bold">
+        <h2 className="luxury-heading story-heading text-4xl md:text-6xl lg:text-7xl mb-8 font-bold">
           We build it with <span className="gold-text italic">intent and care.</span>
         </h2>
         <p className="text-muted-foreground text-lg md:text-xl font-body font-light leading-relaxed max-w-3xl mx-auto uppercase tracking-wide">

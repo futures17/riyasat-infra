@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import logo from "@/assets/corelogo.png";
+import logo from "@/assets/corelogo.webp";
 
 interface LuxuryLoaderProps {
   onComplete: () => void;

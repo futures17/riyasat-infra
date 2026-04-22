@@ -1,32 +1,40 @@
-import bannerHero from "@/assets/banner1.jpg";
-import panoramicHillsideEstatePool from "@/assets/panoramic-hillside-estate-pool.png";
-import clubhouseSunset from "@/assets/estate-clubhouse-sunset.jpg";
-import eveningDiningGarden from "@/assets/estate-evening-dining-garden.jpg";
-import masterplanAerial from "@/assets/estate-masterplan-aerial.jpg";
-import sportsCourtPatio from "@/assets/estate-sports-court-patio.jpg";
-import formalLawnFountain from "@/assets/formal-estate-lawn-fountain.jpg";
-import gatedEntrance from "@/assets/grand-gated-estate-entrance.jpg";
-import modernDriveway from "@/assets/grand-modern-estate-driveway.jpg";
-import poolGarden from "@/assets/luxury-estate-pool-garden.jpg";
-import poolGardenEvening from "@/assets/luxury-estate-pool-garden-evening.jpg";
-import villaExteriorPool from "@/assets/luxury-villa-exterior-pool.jpg";
-import villaGardenWalkway from "@/assets/luxury-villa-garden-walkway.jpg";
-import villaPoolsideDeck from "@/assets/luxury-villa-poolside-deck.jpg";
-import manicuredGarden from "@/assets/manicured-estate-garden.jpg";
-import glassFacade from "@/assets/modern-farmhouse-glass-facade.jpg";
-import fitnessCenter from "@/assets/premium-fitness-center.jpg";
-import cyclingTrack from "@/assets/red-cycling-track-park.jpg";
-import sunriseManor from "@/assets/sunrise-estate-manor.jpg";
-import stoneVillaEvening from "@/assets/stone-villa-evening-view.jpg";
-import courtyardGarden from "@/assets/tropical-courtyard-garden.jpg";
-import courtyardLiving from "@/assets/tropical-courtyard-living.jpg";
-import retreatLawn from "@/assets/tropical-retreat-lawn.jpg";
-import contemporaryLawn from "@/assets/contemporary-estate-lawn.jpg";
-import countryCurvedLawn from "@/assets/country-estate-curved-lawn.png";
-import tropicalPoolResort from "@/assets/tropical-villa-pool-resort.jpg";
-import tuscanVillaPool from "@/assets/tuscan-villa-infinity-pool.png";
-import zenCourtyard from "@/assets/zen-courtyard-water-garden.jpg";
-import landscapeTeam from "@/assets/estate-landscape-garden-team.png";
+import bannerHero from "@/assets/banner1.webp";
+import panoramicHillsideEstatePool from "@/assets/panoramic-hillside-estate-pool.webp";
+import clubhouseSunset from "@/assets/estate-clubhouse-sunset.webp";
+import eveningDiningGarden from "@/assets/estate-evening-dining-garden.webp";
+import masterplanAerial from "@/assets/estate-masterplan-aerial.webp";
+import sportsCourtPatio from "@/assets/estate-sports-court-patio.webp";
+import formalLawnFountain from "@/assets/formal-estate-lawn-fountain.webp";
+import gatedEntrance from "@/assets/grand-gated-estate-entrance.webp";
+import modernDriveway from "@/assets/grand-modern-estate-driveway.webp";
+import poolGarden from "@/assets/luxury-estate-pool-garden.webp";
+import poolGardenEvening from "@/assets/luxury-estate-pool-garden-evening.webp";
+import villaExteriorPool from "@/assets/luxury-villa-exterior-pool.webp";
+import villaGardenWalkway from "@/assets/luxury-villa-garden-walkway.webp";
+import villaPoolsideDeck from "@/assets/luxury-villa-poolside-deck.webp";
+import manicuredGarden from "@/assets/manicured-estate-garden.webp";
+import glassFacade from "@/assets/modern-farmhouse-glass-facade.webp";
+import fitnessCenter from "@/assets/premium-fitness-center.webp";
+import cyclingTrack from "@/assets/red-cycling-track-park.webp";
+import sunriseManor from "@/assets/sunrise-estate-manor.webp";
+import stoneVillaEvening from "@/assets/stone-villa-evening-view.webp";
+import courtyardGarden from "@/assets/tropical-courtyard-garden.webp";
+import courtyardLiving from "@/assets/tropical-courtyard-living.webp";
+import retreatLawn from "@/assets/tropical-retreat-lawn.webp";
+import contemporaryLawn from "@/assets/contemporary-estate-lawn.webp";
+import countryCurvedLawn from "@/assets/country-estate-curved-lawn.webp";
+import tropicalPoolResort from "@/assets/tropical-villa-pool-resort.webp";
+import tuscanVillaPool from "@/assets/tuscan-villa-infinity-pool.webp";
+import zenCourtyard from "@/assets/zen-courtyard-water-garden.webp";
+import landscapeTeam from "@/assets/estate-landscape-garden-team.webp";
+import swimmingPool from "@/assets/facalities/swimming-pool.webp";
+import familyRetreat from "@/assets/facalities/family-retreat.webp";
+import tennisCourt from "@/assets/facalities/tennis-court.webp";
+import meditationGarden from "@/assets/facalities/meditation-garden.webp";
+import restaurantDining from "@/assets/facalities/restaurant-dining.webp";
+import birthdayParty from "@/assets/facalities/birthday_party.webp";
+import peaceGarden from "@/assets/facalities/peace_garden.webp";
+import sundayHoliday from "@/assets/facalities/sunday_holiday.webp";
 
 export type EstateImage = {
   src: string;
@@ -105,6 +113,24 @@ export const facilityCards: FacilityCard[] = [
     alt: "Infinity pool and deck seating",
   },
   {
+    title: "Gated Security",
+    copy: "24/7 guarded entrance with high-definition surveillance for your family's ultimate safety.",
+    src: gatedEntrance,
+    alt: "Gated estate security entrance",
+  },
+  {
+    title: "Modern Lifestyle",
+    copy: "Experience elevated living with smart infrastructure, high-speed connectivity, and elite social circles.",
+    src: modernDriveway,
+    alt: "Modern lifestyle driveway",
+  },
+  {
+    title: "Sustainable Living",
+    copy: "Eco-conscious design featuring rainwater harvesting, solar-powered streets, and organic green belts.",
+    src: zenCourtyard,
+    alt: "Sustainable green living",
+  },
+  {
     title: "Private Clubhouse",
     copy: "A calm social core with lounge seating, indoor recreation, and weekend dining.",
     src: clubhouseSunset,
@@ -113,7 +139,7 @@ export const facilityCards: FacilityCard[] = [
   {
     title: "Curated Lawn Courts",
     copy: "Large event lawns designed for family functions, gatherings, and open-air evenings.",
-    src: roseGardenEstateUrl,
+    src: formalLawnFountain,
     alt: "Curated lawns and terraced gardens",
   },
   {
