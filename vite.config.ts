@@ -8,9 +8,15 @@ export default defineConfig(() => ({
   server: {
     host: "::",
     port: 8080,
+    allowedHosts: [".up.railway.app"],
     hmr: {
       overlay: false,
     },
+  },
+  preview: {
+    host: "::",
+    port: 8080,
+    allowedHosts: [".up.railway.app"],
   },
   plugins: [react()],
   resolve: {
